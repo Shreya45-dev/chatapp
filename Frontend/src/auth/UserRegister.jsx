@@ -26,7 +26,7 @@ const navigate=useNavigate()
   
    e.preventDefault()
    try
-   {const response=await axios.post("http://localhost:3000/api/auth/sendOtp",
+   {const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/sendOtp`,
       {email}
       
       
@@ -71,7 +71,7 @@ formData.append("phonenumber", phonenumber);
 
 
    try{
-    const response=await axios.post("http://localhost:3000/api/auth/user/register",
+    const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/register`,
       formData
       
       

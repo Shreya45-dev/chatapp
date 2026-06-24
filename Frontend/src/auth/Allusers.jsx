@@ -52,7 +52,7 @@ const navigate=useNavigate()
     useEffect(() => {
         const fetchUsers=async()=>{
             try{
-                const response=await axios.get("http://localhost:3000/api/auth/otherUsers",
+                const response=await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/otherUsers`,
                     {withCredentials:true}
                 )
                 setUserList(response.data.users)
@@ -75,7 +75,7 @@ const navigate=useNavigate()
 
     const selectUser=async(userId)=>{
       try{
-        const response=await axios.get(`http://localhost:3000/api/auth/selectedUser/${userId}`,{withCredentials:true})
+        const response=await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/selectedUser/${userId}`,{withCredentials:true})
         // setChooseUser(response.data.selectedUser)
         dispatch(setSelectedUser(response.data.selectedUser))
         dispatch(setMessageUser());

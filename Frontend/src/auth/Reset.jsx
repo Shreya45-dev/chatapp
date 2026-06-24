@@ -16,7 +16,7 @@ console.log(token)
       setLoading(true);
 
       const res = await axios.post(
-        `http://localhost:3000/api/auth/resetPassword/${token}`,
+        `${import.meta.env.VITE_API_URL}/api/auth/resetPassword/${token}`,
         {
           newpassword,
         }

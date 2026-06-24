@@ -16,7 +16,7 @@ const Home=()=>{
       console.log(user._id)
   useEffect(() => {
     if(user){
-      const socket=io('http://localhost:3000',
+      const socket=io(`${import.meta.env.VITE_API_URL}`,
       {
         query:{
           userId:user._id

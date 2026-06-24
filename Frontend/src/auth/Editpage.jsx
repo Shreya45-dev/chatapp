@@ -15,7 +15,7 @@ const navigate=useNavigate()
 console.log(user.profilePhoto)
 const logout=async(req,res)=>{
   try{
-  const response=await axios.get('http://localhost:3000/api/auth/user/logout',
+  const response=await axios.get(`${import.meta.env.VITE_API_URL}/api/auth/user/logout`,
     {withCredentials:true})
     alert('logout')
     dispatch(setAuthUser(null));
@@ -32,7 +32,7 @@ const submitHandler=async(e)=>{
     formData.append("profilePhoto",profilePhoto)
       console.log("kya hua")
     try{
-        const res=await axios.post('http://localhost:3000/api/auth/editProfile',formData,{
+        const res=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/editProfile`,formData,{
             headers:{
                 'Content-Type':'multipart/form-data'
             },withCredentials:true})

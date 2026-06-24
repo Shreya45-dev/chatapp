@@ -34,7 +34,7 @@ const MessageProfile=()=>{
     
     const fetchMessages=async()=>{
       try{
-        const response=await axios.get(`http://localhost:3000/api/message/receiveMessage/${selectedUser?._id}`,{withCredentials:true})
+        const response=await axios.get(`${import.meta.env.VITE_API_URL}/api/message/receiveMessage/${selectedUser?._id}`,{withCredentials:true})
        // setMessage(response.data.conversation.messages)
         //  console.log(response)
        // console.log(response.data.conversation)
@@ -50,7 +50,7 @@ const MessageProfile=()=>{
   const submitHandler=async(e)=>{
     e.preventDefault();
     try{
-        const response=await axios.post(`http://localhost:3000/api/message/sendMessage/${selectedUser?._id}`,{message:newMessage},{
+        const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/message/sendMessage/${selectedUser?._id}`,{message:newMessage},{
             withCredentials: true
         });
         

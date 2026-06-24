@@ -14,7 +14,7 @@ const dispatch = useDispatch()
   const [password, setpassword] = useState('')
   const forgetPassword=async()=>{
     try{
-      const response=await axios.post("http://localhost:3000/api/auth/resetPassword",{email},
+      const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/resetPassword`,{email},
                 {withCredentials:true}
       )
       alert("send reset password successfully")
@@ -28,7 +28,7 @@ const dispatch = useDispatch()
 
         try {
             const response = await axios.post(
-        "http://localhost:3000/api/auth/user/login",
+       `${import.meta.env.VITE_API_URL}/api/auth/user/login`,
         { email, password },
         { withCredentials: true }
       )
