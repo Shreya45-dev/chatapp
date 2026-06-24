@@ -10,6 +10,7 @@ const messageRoutes=require('./routes/message.route')
 const app = express();
 
 
+   // 
 // 🔹 Middleware
 app.use(cors({
   origin: "https://chatapp-1frontend.onrender.com", // frontend URL

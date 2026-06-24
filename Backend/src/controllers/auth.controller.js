@@ -365,8 +365,9 @@ if(!user){
     );
     console.log(token)
 
-    const link = `https://chatapp-uhub.onrender.com/api/auth/resetPassword/${token}`;
+   // const link = `https://chatapp-uhub.onrender.com/api/auth/resetPassword/${token}`;
 
+    const link = `http://localhost:3000/api/auth/resetPassword/${token}`;
     const message = `Hello ${user.fullName}, click here to reset your password: ${link}`;
 
     await sendEmail(user.email, "Reset Password", message);

@@ -12,7 +12,7 @@ const sendEmail = async (email, subject, message) => {
     });
 
     await transporter.sendMail({
-        from: 'projectwebsite221@gmail.com',
+        from: process.env.PROJECT_EMAIL,
         to: email,
         subject: subject,
         text: message
