@@ -16,12 +16,13 @@ const AppRoutes=()=>{
         <Router>
             <Routes>
                 <Route path="/user/login" element={<Userlogin/>} />
-                <Route path="/user/register" element={<UserRegister/>}/>
+                <Route path="/" element={<UserRegister/>}/>
                 <Route path="/Home" element={<Home/>}/>
                 <Route path="/allusers"  element={<Allusers/>}/>
                 <Route path="/messageProfile/:id" element={<MessageProfile/>}/>
                 <Route path="/resetPassword/:token" element={<Reset/>}/>
                 <Route path="/editProfile" element={<Editpage/>}/>
+                
                 
                 
 
