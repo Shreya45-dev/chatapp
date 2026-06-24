@@ -13,7 +13,7 @@ const app = express();
    // 
 // 🔹 Middleware
 app.use(cors({
-  origin: "https://chatapp-1frontend.onrender.com", // frontend URL
+  origin: "https://chatapp-1frontend.onrender.com", // frontend URL//https://chatapp-1frontend.onrender.com
   credentials: true
 }));
 app.use(express.json());

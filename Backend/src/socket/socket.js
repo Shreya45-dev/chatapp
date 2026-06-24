@@ -51,7 +51,7 @@ const getReceiverSocketId = (receiverId) => {
 function initSocket(server) {
    io = new Server(server, {
     cors: {
-      origin: "https://chatapp-1frontend.onrender.com",
+      origin: "https://chatapp-1frontend.onrender.com",//https://chatapp-1frontend.onrender.com
       credentials: true,
     },
   });

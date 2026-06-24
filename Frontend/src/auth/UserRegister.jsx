@@ -45,6 +45,8 @@ const navigate=useNavigate()
     alert("otp failed ❌")
     console.log("Status:", error.response.status);
     console.log("Data:", error.response.data);
+     console.log("Full Error:", error);
+  
   }
 }
   /* formdata={
