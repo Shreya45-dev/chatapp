@@ -283,6 +283,8 @@ const sendOtp = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
+         console.log("🔥 OTP ERROR:", error);
+    console.log("🔥 MESSAGE:", error.message);
 
         return res.status(500).json({
             success: false,
