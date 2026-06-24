@@ -7,10 +7,10 @@ const sendEmail = async (email, subject, message) => {
         secure: false,
         auth: {
             user: process.env.PROJECT_EMAIL,
-            pass: process.env.password
+            pass: process.env.PASSWORD
         }
     });
-    console.log(process.env.password)
+   // console.log(process.env.password)
 
     await transporter.sendMail({
         from: process.env.PROJECT_EMAIL,
