@@ -12,7 +12,7 @@ const navigate=useNavigate()
   const[gender,setgender]=useState("")
   const[phonenumber,setphonenumber]=useState("")
   const[profilePhoto,setProfilePhoto]=useState(null)
-  const[box,setBox]=useState(false)
+  const[box,setBox]=useState(true)
     const [otp, setOtp] = useState(["", "", "", "", "", ""]);
     const handleChange = (value, index) => {
     const newOtp = [...otp];
@@ -121,7 +121,7 @@ formData.append("phonenumber", phonenumber);
       <h1 className=' font-semibold'>Phone Number</h1>
       <input type='number' className='bg-slate-200 w-full mt-2 mb-2 ' value={phonenumber} onChange={(e)=>setphonenumber(e.target.value)} />
        <h1>If Already Registered ?<Link className="text-green-900 font-semibold" to="/user/login" >Login</Link></h1>
-    <h1>If registered as food-partner? <Link to="/">Go to Home Page</Link></h1>
+    
      <button type="submit" className='bg-blue-500 h-6 w-full'>Sign Up</button>
       
     
