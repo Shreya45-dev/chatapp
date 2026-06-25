@@ -202,6 +202,7 @@ const{ v4:uuid}=require("uuid");
 const { sendEmail } = require("../sendemail");
 
 const verifyOtp=[]
+const otpStore = new Map();
 
 
 // ====================== USER REGISTER ======================
@@ -264,7 +265,7 @@ console.log(fullName)
 
 
 const sendOtp = async (req, res) => {
-    try {
+   /* try {
         const { email } = req.body;
 
         const otp = Math.floor(100000 + Math.random() * 900000);
@@ -291,10 +292,46 @@ const sendOtp = async (req, res) => {
             message: "Failed to send OTP"
         });
     }
+};*/
+
+
+
+
+
+  try {
+    const { email } = req.body;
+
+    const otp = Math.floor(100000 + Math.random() * 900000);
+
+    otpStore.set(email, {
+      otp,
+      expires: Date.now() + 5 * 60 * 1000,
+    });
+
+    console.log("OTP GENERATED:", otp);
+
+    await sendEmail(
+      email,
+      "Email Verification OTP",
+      `Your OTP is: ${otp}. Valid for 5 minutes.`
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: "OTP sent successfully",
+    });
+  } catch (error) {
+    console.error("SEND OTP ERROR:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to send OTP",
+    });
+  }
 };
 
 const verify=(req,res)=>{
-    const {otp}=req.body
+    /*const {otp}=req.body
     if(!otp){
         return res.status(200).json({
             message:"Please enter your verification otp",
@@ -315,7 +352,42 @@ const verify=(req,res)=>{
     })
 
             
-    }
+    }*/
+
+    
+  const { email, otp } = req.body;
+
+  const record = otpStore.get(email);
+
+  if (!record) {
+    return res.status(400).json({
+      success: false,
+      message: "OTP not found",
+    });
+  }
+
+  if (Date.now() > record.expires) {
+    otpStore.delete(email);
+    return res.status(400).json({
+      success: false,
+      message: "OTP expired",
+    });
+  }
+
+  if (String(record.otp) !== String(otp)) {
+    return res.status(400).json({
+      success: false,
+      message: "Invalid OTP",
+    });
+  }
+
+  otpStore.delete(email);
+
+  return res.status(200).json({
+    success: true,
+    message: "OTP verified successfully",
+  });
+};
 const resetPassword=async(req,res)=>{
 
     /*const {email}=req.body
