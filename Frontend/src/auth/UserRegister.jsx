@@ -25,6 +25,39 @@ const navigate=useNavigate()
   const submithandler=async(e)=>{
   
    e.preventDefault()
+   const formData = new FormData();
+const fullName=first+" "+second
+formData.append("fullName", fullName);
+formData.append("email", email);
+formData.append("profilePhoto", profilePhoto);
+formData.append("gender", gender);
+formData.append("password", password);
+formData.append("phonenumber", phonenumber);
+
+
+   try{
+    const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/register`,
+      formData
+      
+      
+    ,{
+      withCredentials:true,
+        
+    })
+    console.log(response.data.message)
+    alert(response.data.message)
+    navigate("/user/login")
+
+    
+  }
+  catch(error){
+    console.log(error)
+    alert("registration ❌")
+    console.log("Status:", error.response.status);
+    console.log("Data:", error.response.data);
+  }
+}
+   /*
    try
    {const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/sendOtp`,
       {email}
@@ -49,15 +82,7 @@ const navigate=useNavigate()
   
   }
 }
-  /* formdata={
-      first,
-      second,
-      email,
-      password,
-      phone
-    }
-   console.log(formdata)*/
-
+  
 
 
   
@@ -94,7 +119,7 @@ formData.append("phonenumber", phonenumber);
     console.log("Data:", error.response.data);
   }
 }
-
+*/
 
   
   return (
