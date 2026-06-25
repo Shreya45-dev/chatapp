@@ -40,7 +40,7 @@ const MessageProfile=()=>{
        // console.log(response.data.conversation)
        dispatch(setMessageUser(response.data.conversation.messages))
       } catch (error) {
-        alert("message fetch krne me galti aarhi hai")
+        console.log(error)
 
       }
     }
