@@ -18,8 +18,7 @@ const server = http.createServer(app);
 
 // socket attach
 initSocket(server);
-const dns = require("dns");
-dns.setDefaultResultOrder("ipv4first");
+
 const PORT = process.env.PORT || 3000;
 
 
