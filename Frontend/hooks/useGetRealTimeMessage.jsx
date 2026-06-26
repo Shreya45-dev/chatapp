@@ -74,13 +74,14 @@ export default useGetRealTimeMessage;*/
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setMessageUser } from "../redux/messageSlice";
+import { addMessage, setMessageUser } from "../redux/messageSlice";
 
 const useGetRealTimeMessage = () => {
   const dispatch = useDispatch();
   const { socket } = useSelector((state) => state.socket);
   const messages = useSelector((state) => state.messageuser.messageuser);
   const selectuser=useSelector((state)=>state.selectedUser.selectedUser)
+  
 
 
   useEffect(() => {
@@ -96,7 +97,8 @@ const useGetRealTimeMessage = () => {
       }
       if(msg.senderId === selectuser?._id ||
     msg.receiverId === selectuser?._id){
-      dispatch(setMessageUser([...messages, msg]));
+      //dispatch(setMessageUser([...messages, msg]));
+      dispatch(addMessage(msg))
     };
   }
     socket.on("newMessage", handleNewMessage);
