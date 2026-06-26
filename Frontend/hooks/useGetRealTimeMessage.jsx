@@ -80,6 +80,8 @@ const useGetRealTimeMessage = () => {
   const dispatch = useDispatch();
   const { socket } = useSelector((state) => state.socket);
   const messages = useSelector((state) => state.messageuser.messageuser);
+  const selectuser=useSelector((state)=>state.selectedUser.selectedUser)
+
 
   useEffect(() => {
     if (!socket) return;
@@ -92,10 +94,11 @@ const useGetRealTimeMessage = () => {
       } else {
         console.log("💾 DB MESSAGE");
       }
-
+      if(msg.senderId === selectuser?._id ||
+    msg.receiverId === selectuser?._id){
       dispatch(setMessageUser([...messages, msg]));
     };
-
+  }
     socket.on("newMessage", handleNewMessage);
 
     return () => {
