@@ -21,14 +21,7 @@ const sendMessage=async(req,res)=>{
         senderId,
         receiverId
     })
-    conversation.messages.push(newMessage._id)
-    await conversation.save()
-
-
-
-
-      
-      
+     
     const receiverSocketId=getReceiverSocketId(receiverId)
     /*console.log("receiverId:", receiverId);
 console.log("typeof receiverId:", typeof receiverId);
@@ -58,6 +51,18 @@ if (receiverSocketId) {
 } else {
     console.log("💾 Message saved only in DB (offline user)");
 }
+
+
+
+    conversation.messages.push(newMessage._id)
+    await conversation.save()
+
+
+
+
+      
+      
+    
     return res.status(201).json({
         message:"Message sent successfully",
         newMessage,
