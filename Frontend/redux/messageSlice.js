@@ -27,6 +27,7 @@ const messageSlice = createSlice({
   name: "messageuser",
   initialState: {
     messageuser: [],
+    
   },
   reducers: {
     setMessageUser: (state, action) => {
@@ -40,10 +41,27 @@ const messageSlice = createSlice({
     clearMessages: (state) => {
       state.messageuser = [];
     },
-  },
-});
+  
 
-export const { setMessageUser, addMessage, clearMessages } =
+markMessagesRead: (state, action) => {
+  const { senderId, receiverId } = action.payload;
+
+  state.messageuser = state.messageuser.map((msg) => {
+    if (
+      msg.senderId.toString() === senderId &&
+      msg.receiverId.toString() === receiverId
+    ) {
+      return { ...msg, isRead: true };
+    }
+    return msg;
+  });
+
+  }
+
+
+}})
+
+export const { setMessageUser, addMessage, clearMessages,  markMessagesRead, } =
   messageSlice.actions;
 
 export default messageSlice.reducer;

@@ -7,6 +7,7 @@ import { setSocket } from '../../redux/socketSlice'
 import {useNavigate} from 'react-router-dom'
 
 import io from "socket.io-client"
+import { markMessagesRead } from '../../redux/messageSlice'
 
 
 const Home=()=>{
@@ -36,15 +37,22 @@ socket.on("connect_error", (err) => {
   console.log("Connect Error:", err);
   
 });
+socket.on("messagesRead", (data) => {
+    dispatch(markMessagesRead(data));
+  console.log("📩 messagesRead received: " ,data);
+});
+
+ return () => {
+    socket.disconnect();
+  };
     }
   
    
   }, [user])
-  const navigate=useNavigate()
   
-   if (!user?._id) {
-  navigate('/user/login');
-}
+  
+  
+
   
   return (
     <div className='h-screen w-screen flex  bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500'>

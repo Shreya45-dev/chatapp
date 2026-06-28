@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react'
+import React, { useState,useRef } from 'react'
 import axios from 'axios'
 import {Link, useNavigate} from "react-router-dom"
 const UserRegister = () => {
 const navigate=useNavigate()
+const form = useRef();
   const [first, setfirst] = useState("")
   const[second,setsecond]=useState("");
   const[email,setemail]=useState("");
@@ -25,6 +26,35 @@ const navigate=useNavigate()
   const submithandler=async(e)=>{
   
    e.preventDefault()
+   try
+   {const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/sendOtp`,
+      {email}
+      
+      
+    ,{
+      withCredentials:true,
+        
+    })
+    console.log(response.data.message)
+    setBox(false)
+  
+    
+    
+  }
+  catch(error){
+    console.log(error)
+    alert("otp failed ❌")
+    console.log("Status:", error.response.status);
+    console.log("Data:", error.response.data);
+     console.log("Full Error:", error);
+  
+  }
+}
+   
+const register=async()=>{
+
+
+    
    const formData = new FormData();
 const fullName=first+" "+second
 formData.append("fullName", fullName);
@@ -53,73 +83,14 @@ formData.append("phonenumber", phonenumber);
   catch(error){
     console.log(error)
     alert("registration ❌")
-    console.log("Status:", error.response.status);
-    console.log("Data:", error.response.data);
+   // console.log("Status:", error.response.status);
+   // console.log("Data:", error.response.data);
   }
 }
-   /*
-   try
-   {const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/sendOtp`,
-      {email}
-      
-      
-    ,{
-      withCredentials:true,
-        
-    })
-    console.log(response.data.message)
-    setBox(false)
-  
-    
-    
-  }
-  catch(error){
-    console.log(error)
-    alert("otp failed ❌")
-    console.log("Status:", error.response.status);
-    console.log("Data:", error.response.data);
-     console.log("Full Error:", error);
-  
-  }
-}
+   
+   
   
 
-
-  
-  const register=async()=>{
-const formData = new FormData();
-const fullName=first+" "+second
-formData.append("fullName", fullName);
-formData.append("email", email);
-formData.append("profilePhoto", profilePhoto);
-formData.append("gender", gender);
-formData.append("password", password);
-formData.append("phonenumber", phonenumber);
-
-
-   try{
-    const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/user/register`,
-      formData
-      
-      
-    ,{
-      withCredentials:true,
-        
-    })
-    console.log(response.data.message)
-    alert(response.data.message)
-    navigate("/user/login")
-
-    
-  }
-  catch(error){
-    console.log(error)
-    alert("registration ❌")
-    console.log("Status:", error.response.status);
-    console.log("Data:", error.response.data);
-  }
-}
-*/
 
   
   return (
@@ -130,15 +101,15 @@ formData.append("phonenumber", phonenumber);
       <div className="h-[600px] md:w-[420px] w-[320px] ">
       <i className='text-4xl font-bold mt-5 mb-5 ml-3 '>Sign Up</i>  
       <h1 className='mb-3 ml-3'>Please fill in this form to create account</h1>
-    <form onSubmit={submithandler}> 
+    <form  ref={form} onSubmit={submithandler}  > 
       <h1 className=' font-semibold'>First Name</h1>
-      <input type='text' className='bg-slate-200 w-full mt-2 mb-2 ' value={first} onChange={(e)=>setfirst(e.target.value)} />
+      <input type='text' className='bg-slate-200 w-full mt-2 mb-2 'name="first" value={first} onChange={(e)=>setfirst(e.target.value)} />
       <h1 className=' font-semibold'>Second Name</h1>
 
       <input type='text' className='bg-slate-200 w-full mt-2 mb-2 ' value={second} onChange={(e)=>setsecond(e.target.value)} />
       <h1 className=' font-semibold'>Email</h1>
       
-      <input type='email' className='bg-slate-200 w-full mt-2 mb-2 ' value={email} onChange={(e)=>setemail(e.target.value)} />
+      <input type='email' className='bg-slate-200 w-full mt-2 mb-2 ' name="email" value={email} onChange={(e)=>setemail(e.target.value)} />
        <h1 className='font-semibold'>ProfilePhoto</h1>
       <input type="file" onChange={(e) => setProfilePhoto(e.target.files[0])}/>
       <h1 className=' font-semibold'>Gender</h1>
@@ -179,7 +150,7 @@ formData.append("phonenumber", phonenumber);
 
       
     </div></>
-  )
-}
+  )}
+
 
 export default UserRegister

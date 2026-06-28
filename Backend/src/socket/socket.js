@@ -41,8 +41,11 @@ io.on("connection", (socket) => {
 
 export {  io, server };*/
 const { Server } = require("socket.io");
+const messageModel = require("../models/message.model");
+
 
 const userSocketMap = {};
+
 let io
 const getReceiverSocketId = (receiverId) => {
   return userSocketMap[receiverId ];
@@ -51,7 +54,7 @@ const getReceiverSocketId = (receiverId) => {
 function initSocket(server) {
    io = new Server(server, {
     cors: {
-      origin: "https://chatapp-1frontend.onrender.com",//https://chatapp-1frontend.onrender.com
+      origin: "https://chatapp-1frontend.onrender.com",//
       credentials: true,
     },
   });
@@ -66,6 +69,53 @@ function initSocket(server) {
     }
 
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
+//
+    socket.on("markAsRead", async ({ senderId, receiverId }) => {
+       console.log("senderId", senderId ,"receiverId",receiverId);
+       console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
+const result = await messageModel.updateMany(
+  {
+    $or: [
+      {
+        senderId: senderId,
+        receiverId: receiverId,
+        isRead: false,
+      },
+      {
+        senderId: receiverId,
+        receiverId: senderId,
+        isRead: false,
+      },
+    ],
+  },
+  {
+    $set: { isRead: true },
+  }
+
+
+
+
+)
+  
+  const senderSocket = userSocketMap[senderId];
+  console.log("SENDER SOCKET:", senderSocket);
+
+  if (senderSocket) {
+    io.to(senderSocket).emit("messagesRead", {
+      senderId,
+      receiverId,
+    });
+
+    console.log("📤 messagesRead emitted    ooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
+  } else {
+    console.log("❌ sender offline / socket not found  eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+  }
+  console.log(result.modifiedCount)
+  
+});
+
+
+;
 
     socket.on("disconnect", () => {
       console.log("user disconnected", socket.id);
