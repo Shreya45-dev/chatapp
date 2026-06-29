@@ -26,36 +26,7 @@ const form = useRef();
   const submithandler=async(e)=>{
   
    e.preventDefault()
-   try
-   {const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/sendOtp`,
-      {email}
-      
-      
-    ,{
-      withCredentials:true,
-        
-    })
-    console.log(response.data.message)
-    setBox(false)
-  
-    
-    
-  }
-  catch(error){
-    console.log(error)
-    alert("otp failed ❌")
-    console.log("Status:", error.response.status);
-    console.log("Data:", error.response.data);
-     console.log("Full Error:", error);
-  
-  }
-}
-   
-const register=async()=>{
-
-
-    
-   const formData = new FormData();
+    const formData = new FormData();
 const fullName=first+" "+second
 formData.append("fullName", fullName);
 formData.append("email", email);
@@ -87,10 +58,34 @@ formData.append("phonenumber", phonenumber);
    // console.log("Data:", error.response.data);
   }
 }
-   
-   
-  
+const register=async()=>{
 
+
+    
+  try{const response=await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/sendOtp`,
+      {email}
+      
+      
+    ,{
+      withCredentials:true,
+        
+    })
+    console.log(response.data.message)
+    setBox(false)
+  
+    
+    
+  }
+  catch(error){
+    console.log(error)
+    alert("otp failed ❌")
+    console.log("Status:", error.response.status);
+    console.log("Data:", error.response.data);
+     console.log("Full Error:", error);
+  
+  }
+}
+   
 
   
   return (

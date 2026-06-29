@@ -74,20 +74,16 @@ function initSocket(server) {
        console.log("senderId", senderId ,"receiverId",receiverId);
        console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
 const result = await messageModel.updateMany(
-  {
-    $or: [
+  
+  
       {
         senderId: senderId,
         receiverId: receiverId,
         isRead: false,
       },
-      {
-        senderId: receiverId,
-        receiverId: senderId,
-        isRead: false,
-      },
-    ],
-  },
+   
+  
+    
   {
     $set: { isRead: true },
   }
