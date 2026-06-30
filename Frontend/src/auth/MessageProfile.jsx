@@ -45,12 +45,12 @@ const MessageProfile=()=>{
       );
 
       dispatch(setMessageUser(response.data.conversation.messages));
-          console.log("fetch hua")
+        /*  console.log("fetch hua")
    if (socket && selectedUser?._id && user?._id) {
   socket.emit("markAsRead", {
     senderId: selectedUser._id,
     receiverId: user._id,
-  });}
+  });}*/
 }
 catch(err){
   console.log(err)

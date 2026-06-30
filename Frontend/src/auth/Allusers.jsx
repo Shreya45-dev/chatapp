@@ -58,7 +58,9 @@ const navigate=useNavigate()
                 setUserList(response.data.users)
                 setSearchData(response.data.users)
                 console.log(response.data.users)
-
+                 if (window.innerWidth < 640) {
+                  dispatch(setSelectedUser(null))
+                 }
                 
             }
             catch(error){
@@ -104,7 +106,7 @@ const navigate=useNavigate()
   
    <div className="h-[100%] w-[100%] bg-pink-400">
     <div className="upperbox w-[100%] h-[15vh] border-b-4 border-pink-600 flex items-center  ">
-       <h2 className="text-white ml-0 font-semibold  text-3xl"onClick={()=>setDp(!dp)}><FaArrowLeft /></h2>
+       <h2 className="text-white ml-0 font-semibold  text-3xl"onClick={()=>{setDp(!dp)}}><FaArrowLeft /></h2>
       <h1 className=" w-full font-semibold text-3xl  text-center">{selectedUser.fullName}</h1>
      
     </div>
