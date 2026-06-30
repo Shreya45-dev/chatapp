@@ -54,7 +54,7 @@ const getReceiverSocketId = (receiverId) => {
 function initSocket(server) {
    io = new Server(server, {
     cors: {
-      origin: "https://chatapp-1frontend.onrender.com",//
+      origin: "http://localhost:5173",//
       credentials: true,
     },
   });
@@ -67,6 +67,7 @@ function initSocket(server) {
     if (userId) {
       userSocketMap[userId] = socket.id;
     }
+  
 
     io.emit("getOnlineUsers", Object.keys(userSocketMap));
 //
@@ -74,16 +75,20 @@ function initSocket(server) {
        console.log("senderId", senderId ,"receiverId",receiverId);
        console.log("jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh")
 const result = await messageModel.updateMany(
-  
-  
+  {
+    $or: [
       {
         senderId: senderId,
         receiverId: receiverId,
         isRead: false,
       },
-   
-  
-    
+      {
+        senderId: receiverId,
+        receiverId: senderId,
+        isRead: false,
+      },
+    ],
+  },
   {
     $set: { isRead: true },
   }
@@ -109,12 +114,13 @@ const result = await messageModel.updateMany(
   console.log(result.modifiedCount)
   
 });
-
+  
 
 ;
 
-    socket.on("disconnect", () => {
-      console.log("user disconnected", socket.id);
+   socket.on("disconnect", (reason) => {
+  console.log("Disconnected:", socket.id, reason);
+
 
       if (userId) {
         delete userSocketMap[userId];
@@ -122,7 +128,7 @@ const result = await messageModel.updateMany(
 
       io.emit("getOnlineUsers", Object.keys(userSocketMap));
     });
-  });
+  })
 
   return io;
  

@@ -167,7 +167,14 @@ const useGetRealTimeMessage = () => {
       if (!isCurrentChat) return;
 
       dispatch(addMessage(msg));
-
+        
+      if (msg.senderId === selectedUser?._id && msg.receiverId === currentUser._id) {
+    socket.emit("markAsRead", {
+      senderId: msg.senderId,
+      receiverId: currentUser._id,
+    });
+    console.log("aurrrrrrrrrrrrrrrrrrrrr bataooooooo")
+  }
       // IMPORTANT:
       // agar message mujhe aaya hai (i am receiver), tab mark as read
       
@@ -186,7 +193,8 @@ const useGetRealTimeMessage = () => {
 
     const handleMessagesRead = (data) => {
       dispatch(markMessagesRead(data));
-      console.log("📩 messagesRead received:", data);
+      console.log("📩 messagesRead received:bataooooooooooooooooooooooooooooooooooooooooooooo", data);
+
     };
 
     socket.on("messagesRead", handleMessagesRead);

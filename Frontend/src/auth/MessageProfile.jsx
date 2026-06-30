@@ -45,7 +45,7 @@ const MessageProfile=()=>{
       );
 
       dispatch(setMessageUser(response.data.conversation.messages));
-
+          console.log("fetch hua")
    if (socket && selectedUser?._id && user?._id) {
   socket.emit("markAsRead", {
     senderId: selectedUser._id,
@@ -59,7 +59,7 @@ catch(err){
 
   fetchMessages();
 
-}, [selectedUser, socket]);
+}, [selectedUser, socket,dispatch]);
 
   const submitHandler=async(e)=>{
     e.preventDefault();
@@ -87,7 +87,7 @@ catch(err){
   
     setMessage("");
   };
-
+console.log(message.length)
 
   return (
     <div className="w-screen flex flex-col h-screen sm:w-[70vw] bg-pink-200">

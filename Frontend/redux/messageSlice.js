@@ -48,6 +48,7 @@ markMessagesRead: (state, action) => {
 
   state.messageuser = state.messageuser.map((msg) => {
     if (
+    
       msg.senderId.toString() === senderId &&
       msg.receiverId.toString() === receiverId
     ) {

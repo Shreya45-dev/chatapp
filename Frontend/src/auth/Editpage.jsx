@@ -6,8 +6,10 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import axios from "axios"
 import { setAuthUser } from '../../redux/authSlice'
+import { setMessageUser } from '../../redux/messageSlice'
 
 const Editpage = () => {
+  
 const {user}=useSelector((state)=>state.auth)
 const[profilePhoto,setProfilePhoto]=useState(null)
 const dispatch=useDispatch();
@@ -19,6 +21,7 @@ const logout=async(req,res)=>{
     {withCredentials:true})
     alert('logout')
     dispatch(setAuthUser(null));
+    dispatch(setMessageUser(null))
     navigate("/user/login");
   }
   catch(error){
@@ -39,6 +42,7 @@ const submitHandler=async(e)=>{
        console.log(res.data.message)
         dispatch(setAuthUser(res.data.user))
         console.log("hellokuko")
+
     }
     catch(error){
         console.log(error)

@@ -94,8 +94,9 @@ const sendMessage = async (req, res) => {
 
   if (receiverSocketId) {
     const io = getIo();
+    
 
-    io.to(receiverSocketId).emit("newMessage", newMessage);
+     io.to(receiverSocketId).emit("newMessage", newMessage);
   }
 
   return res.status(201).json({

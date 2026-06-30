@@ -37,14 +37,12 @@ socket.on("connect_error", (err) => {
   console.log("Connect Error:", err);
   
 });
-socket.on("messagesRead", (data) => {
+/*socket.on("messagesRead", (data) => {
     dispatch(markMessagesRead(data));
   console.log("📩 messagesRead received: " ,data);
-});
+});*/
 
- return () => {
-    socket.disconnect();
-  };
+ 
     }
   
    

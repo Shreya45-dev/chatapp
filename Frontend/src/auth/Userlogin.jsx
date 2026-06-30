@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom"
 import { useDispatch } from 'react-redux'
 import { setAuthUser } from '../../redux/authSlice'
+import { setMessageUser } from '../../redux/messageSlice'
 
 
 const Userlogin = () => {
@@ -37,6 +38,7 @@ const dispatch = useDispatch()
 ...response.data.user,
 
 }));
+setMessageUser(null)
       navigate("/Home")
 
     } catch (error) {
