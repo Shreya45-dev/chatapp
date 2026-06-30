@@ -111,7 +111,7 @@ const receiveMessage=async(req,res)=>{
         participants:{$all:[senderId,receiverId]}
     }).populate('messages')
     
-   /* for (const msg of conversation.messages) {
+  /* for (const msg of conversation.messages) {
     if (
       msg.senderId.toString() === senderId &&
       msg.receiverId.toString() === receiverId &&
@@ -123,7 +123,7 @@ const receiveMessage=async(req,res)=>{
   }*/
     
  //   console.log(userSocketMap)
-      await messageModel.updateMany(
+       await messageModel.updateMany(
   { senderId, receiverId, isRead: false },
   { $set: { isRead: true } }
 );
